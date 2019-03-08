@@ -1,5 +1,4 @@
 json.name user.name
+json.id user.id
 json.email user.email
 json.zipcode user.zipcode
-json.favorite user.favorites
-json.favorite_petfinder_ids user.favorite_petfinder_id

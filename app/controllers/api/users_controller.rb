@@ -22,4 +22,25 @@ class Api::UsersController < ApplicationController
     end
 
   end
+
+  def update
+    @user = current_user
+    @user.name = params[:name] || @user.name
+    @user.email = params[:email] || @user.email
+    @user.zipcode = params[:zipcode] || @user.zipcode
+    @user.password = params[:password] || @user.password_digest
+
+    if @user.save
+      render 'show.json.jbuilder'
+    else
+      render json: {errors: @user.errors.full_messages}, status: :bad_request
+    end
+    
+  end
+
+  def destroy
+    @user = current_user
+    @user.destroy
+    render json: {message: "User successfully destroyed"}
+  end
 end
