@@ -4,6 +4,8 @@ class Api::FavoritesController < ApplicationController
       user_id: current_user.id)
 
     if @favorite.save
+      # this is necessary for creating the favorite using favorite button: render json: {message: "New favorite created"}
+      # this is necessary for showing the favs on the user profile:
       render 'show.json.jbuilder'
     else
       render json: {errors: user.errors.full_messages}
