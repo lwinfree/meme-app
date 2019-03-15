@@ -1,9 +1,18 @@
 class Api::UsersController < ApplicationController
   
   def show
-    # @user = User.find(params[:id])
     @user = current_user
+    # if @user.zipcode.digits.length < 5
+    #   @user.zipcode = "0"+"#{@user.zipcode}"
+    # else
+    #   @user.zipcode = @user.zipcode
+    # end
     render 'show.json.jbuilder'
+  end
+
+  def favorites
+    @user = current_user
+    render 'user_favorites.json.jbuilder'
   end
 
   def create

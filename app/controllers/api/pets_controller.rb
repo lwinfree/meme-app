@@ -25,7 +25,7 @@ class Api::PetsController < ApplicationController
     @pet = HTTP.get("http://api.petfinder.com/pet.get?key=#{ENV['API_KEY']}&id=#{@petfinder_id}&format=json").parse
     @pet = @pet["petfinder"]["pet"]
 
-    @favorite = Favorite.find_by(user_id: current_user, petfinder_id: params[:id])
+    @favorite = Favorite.find_by(user_id: current_user.id, petfinder_id: params[:id])
 
     render 'show.json.jbuilder'
     #TODO: add in logic to show if a pet is favorited

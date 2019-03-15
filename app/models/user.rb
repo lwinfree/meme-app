@@ -5,7 +5,7 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   validates :zipcode, presence: true, length: {in: 4..5}, numericality: {only_integer: true}
 
-  def favorite_petfinder_id
+  def favorite_petfinder_ids
     favorites.map{|favorite| favorite.petfinder_id}
   end
   

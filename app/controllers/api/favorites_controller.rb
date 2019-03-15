@@ -13,7 +13,7 @@ class Api::FavoritesController < ApplicationController
   end
 
   def destroy
-    @favorite = Favorite.find_by(petfinder_id: params[:petfinder_id])
+    @favorite = Favorite.find_by(petfinder_id: params[:id])
     @favorite.destroy
     render json: {message: "No longer a favorite"}
   end
