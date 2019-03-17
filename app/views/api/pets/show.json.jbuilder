@@ -7,6 +7,8 @@ json.pet_sex @pet["sex"]["$t"]
 json.pet_description @pet["description"]["$t"]
 # json.pet_photo @pet["media"]["photos"]["photo"][2]["$t"]
 
+json.meme @meme
+
 if @favorite
   json.favorite true
 else

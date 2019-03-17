@@ -1,4 +1,7 @@
+include Magick
+
 class Api::PetsController < ApplicationController
+
   def index
     if current_user
       if current_user.zipcode.digits.length < 5
@@ -25,14 +28,32 @@ class Api::PetsController < ApplicationController
     @pet = HTTP.get("http://api.petfinder.com/pet.get?key=#{ENV['API_KEY']}&id=#{@petfinder_id}&format=json").parse
     @pet = @pet["petfinder"]["pet"]
 
-    @favorite = Favorite.find_by(user_id: current_user.id, petfinder_id: params[:id])
+    # @favorite = Favorite.find_by(user_id: current_user.id, petfinder_id: params[:id])
+
+    
+
+    dog = ImageList.new("http://photos.petfinder.com/photos/pets/43801171/1/?bust=1547788392&width=500&-x.jpg")
+
+    texts = ['wow', 'such woofer', 'smol boi', 'v floof', 'many doge', 'much love', 'sub woofer', 'so goob', 'amaze', 'needz hooman', 'goob pupper']
+    positions = [Magick::NorthWestGravity, Magick::NorthEastGravity, Magick::SouthWestGravity]
+    x = 0
+    text = Magick::Draw.new
+    text.font_family = 'helvetica'
+    text.pointsize = 25
+
+    positions.each do |position|
+      x = rand(0..10)
+      text.gravity = position
+      text.annotate(dog, 0,0,0,0, texts[x]) {
+        self.fill = 'gray83'
+      }
+    end
+    @meme = dog.display
+    # @meme = "meme.jpg"
+    # exit
+
 
     render 'show.json.jbuilder'
-    #TODO: add in logic to show if a pet is favorited
-    #if current_user.favorite_petfinder_id == @petfinder_id
-      #display filled in heart icon
-    #else
-      #display empty heart icon
-    #end
+
   end
 end
