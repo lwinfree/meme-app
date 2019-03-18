@@ -28,30 +28,27 @@ class Api::PetsController < ApplicationController
     @pet = HTTP.get("http://api.petfinder.com/pet.get?key=#{ENV['API_KEY']}&id=#{@petfinder_id}&format=json").parse
     @pet = @pet["petfinder"]["pet"]
 
-    # @favorite = Favorite.find_by(user_id: current_user.id, petfinder_id: params[:id])
+    image = @pet["media"]["photos"]["photo"][2]["$t"]
 
-    
+    @favorite = Favorite.find_by(user_id: current_user.id, petfinder_id: params[:id])
 
-    dog = ImageList.new("http://photos.petfinder.com/photos/pets/43801171/1/?bust=1547788392&width=500&-x.jpg")
+    dog = ImageList.new(image)
 
-    texts = ['wow', 'such woofer', 'smol boi', 'v floof', 'many doge', 'much love', 'sub woofer', 'so goob', 'amaze', 'needz hooman', 'goob pupper']
-    positions = [Magick::NorthWestGravity, Magick::NorthEastGravity, Magick::SouthWestGravity]
+    texts = ['wow', 'such woofer', 'smol boi', 'floofer', 'many doge', 'much love', 'sub woofer', 'amaze', 'needz', 'goob', 'pupper']
+    positions = [Magick::NorthWestGravity, Magick::EastGravity, Magick::SouthWestGravity]
     x = 0
     text = Magick::Draw.new
-    text.font_family = 'helvetica'
-    text.pointsize = 25
+    text.font_family = 'NewCenturySchlbk'
+    text.pointsize = 40
 
     positions.each do |position|
       x = rand(0..10)
       text.gravity = position
       text.annotate(dog, 0,0,0,0, texts[x]) {
-        self.fill = 'gray83'
+        self.fill = 'gold'
       }
     end
     @meme = dog.write("app/assets/images/meme.jpg")
-    # @meme = "/app/assets/images/meme.jpg"
-    # exit
-
 
     render 'show.json.jbuilder'
 
