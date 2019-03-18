@@ -48,8 +48,8 @@ class Api::PetsController < ApplicationController
         self.fill = 'gray83'
       }
     end
-    @meme = dog.display
-    # @meme = "meme.jpg"
+    @meme = dog.write("app/assets/images/meme.jpg")
+    # @meme = "/app/assets/images/meme.jpg"
     # exit
 
 
