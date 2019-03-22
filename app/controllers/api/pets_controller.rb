@@ -15,27 +15,8 @@ class Api::PetsController < ApplicationController
 
     pets = HTTP.get("http://api.petfinder.com/pet.find?key=#{ENV['API_KEY']}&location=#{@location}&animal=dog&format=json").parse
     @pets = pets["petfinder"]["pets"]["pet"]
-    # @pet_photo = @pets[]["media"]
-    # @pet_photo = @pets.map{|pet| pet["media"]["photos"]["photo"]}
-    # note: this gives me every pet's images per pet (as opposed to just that pet's images) bc of the loop in the view @pet_photo = @pets.map{|pet| pet["media"]["photos"]["photo"]}
 
     render 'index.json.jbuilder'
-
-    # if @pets#["breeds"]["breed"]
-    #   @breed_list = @pets["breeds"]["breed"][0]["$t"]
-    # else
-    #   @breed_list = @pets["breeds"]["breed"]["$t"]
-    # end
-
-
-
-
-    # // <h5 v-if="Array.isArray(pet.pet_breeds)">
-    # //                     {{pet.pet_breeds[0]["$t"]}}
-    # //                   </h5>
-    # //                   <h5 v-else> 
-    # //                     {{pet.pet_breeds.$t }} 
-    # //                   </h5>
 
   end
 
@@ -55,7 +36,7 @@ class Api::PetsController < ApplicationController
     x = 0
     text = Magick::Draw.new
     text.font_family = 'NewCenturySchlbk'
-    text.pointsize = 40
+    text.pointsize = 50
 
     positions.each do |position|
       x = rand(0..10)
