@@ -21,6 +21,22 @@ class Api::PetsController < ApplicationController
 
     render 'index.json.jbuilder'
 
+    # if @pets#["breeds"]["breed"]
+    #   @breed_list = @pets["breeds"]["breed"][0]["$t"]
+    # else
+    #   @breed_list = @pets["breeds"]["breed"]["$t"]
+    # end
+
+
+
+
+    # // <h5 v-if="Array.isArray(pet.pet_breeds)">
+    # //                     {{pet.pet_breeds[0]["$t"]}}
+    # //                   </h5>
+    # //                   <h5 v-else> 
+    # //                     {{pet.pet_breeds.$t }} 
+    # //                   </h5>
+
   end
 
   def show
