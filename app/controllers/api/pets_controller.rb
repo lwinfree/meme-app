@@ -13,7 +13,7 @@ class Api::PetsController < ApplicationController
       @location = 97214 #default
     end
 
-    pets = HTTP.get("https://api.petfinder.com/pet.find?key=#{ENV['API_KEY']}&location=#{@location}&animal=dog&format=json").parse
+    pets = HTTP.get("http://api.petfinder.com/pet.find?key=#{ENV['API_KEY']}&location=#{@location}&animal=dog&format=json").parse
     @pets = pets["petfinder"]["pets"]["pet"]
 
     render 'index.json.jbuilder'
@@ -22,7 +22,7 @@ class Api::PetsController < ApplicationController
 
   def show
     @petfinder_id = params[:id]
-    @pet = HTTP.get("https://api.petfinder.com/pet.get?key=#{ENV['API_KEY']}&id=#{@petfinder_id}&format=json").parse
+    @pet = HTTP.get("http://api.petfinder.com/pet.get?key=#{ENV['API_KEY']}&id=#{@petfinder_id}&format=json").parse
     @pet = @pet["petfinder"]["pet"]
 
     image = @pet["media"]["photos"]["photo"][2]["$t"]
