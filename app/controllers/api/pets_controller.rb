@@ -23,31 +23,37 @@ class Api::PetsController < ApplicationController
   def show
     @petfinder_id = params[:id]
     @pet = HTTP.get("http://api.petfinder.com/pet.get?key=#{ENV['API_KEY']}&id=#{@petfinder_id}&format=json").parse
-    @pet = @pet["petfinder"]["pet"]
 
-    image = @pet["media"]["photos"]["photo"][2]["$t"]
+    if @pet["petfinder"]["header"]["status"]["message"]["$t"] == "shelter opt-out"
+      @no_pet = true
+      @no_pet_message = "No information for this pet"
+    else
+      @no_pet = false
+      @pet = @pet["petfinder"]["pet"]
 
-    @favorite = Favorite.find_by(user_id: current_user.id, petfinder_id: params[:id])
+      image = @pet["media"]["photos"]["photo"][2]["$t"]
 
-    dog = ImageList.new(image)
+      # @favorite = Favorite.find_by(user_id: current_user.id, petfinder_id: params[:id])
+ 
+      dog = ImageList.new(image)
 
-    texts = ['wow', 'such woofer', 'smol boi', 'floofer', 'many doge', 'much love', 'sub woofer', 'amaze', 'needz', 'goob', 'pupper']
-    positions = [Magick::NorthWestGravity, Magick::EastGravity, Magick::SouthWestGravity]
-    x = 0
-    text = Magick::Draw.new
-    text.font_family = 'NewCenturySchlbk'
-    text.pointsize = 50
+      texts = ['wow', 'such woofer', 'smol boi', 'floofer', 'many doge', 'much love', 'sub woofer', 'amaze', 'needz', 'goob', 'pupper']
+      positions = [Magick::NorthWestGravity, Magick::EastGravity, Magick::SouthWestGravity]
+      x = 0
+      text = Magick::Draw.new
+      text.font_family = 'NewCenturySchlbk'
+      text.pointsize = 50
 
-    positions.each do |position|
-      x = rand(0..10)
-      text.gravity = position
-      text.annotate(dog, 0,0,0,0, texts[x]) {
-        self.fill = 'gold'
-      }
+      positions.each do |position|
+        x = rand(0..10)
+        text.gravity = position
+        text.annotate(dog, 0,0,0,0, texts[x]) {
+          self.fill = 'gold'
+        }
+      end
+      @meme = dog.write("app/assets/images/meme.jpg")
+
     end
-    @meme = dog.write("app/assets/images/meme.jpg")
-
     render 'show.json.jbuilder'
-
   end
 end
