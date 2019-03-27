@@ -37,19 +37,22 @@ class Api::PetsController < ApplicationController
  
       dog = ImageList.new(image)
 
-      texts = ['wow', 'such woofer', 'smol boi', 'floofer', 'many doge', 'much love', 'sub woofer', 'amaze', 'needz', 'goob', 'pupper']
+      texts = ['wow', 'such woofer', 'smol boi', 'floofer', 'many doge', 'much love', 'sub woofer', 'amaze', 'needz', 'goob', 'pupper', 'cloud', 'chonk', 'woof', 'bork', '14/10']
+      colors = ['gold', 'white', 'green', 'grey', 'purple', 'cyan', 'fuchsia', 'indigo', 'lime', 'maroon', 'orange', 'orchid', 'red', 'teal']
       positions = [Magick::NorthWestGravity, Magick::EastGravity, Magick::SouthWestGravity]
       x = 0
+      y = 0
       text = Magick::Draw.new
       text.font_family = 'NewCenturySchlbk'
       text.pointsize = 50
 
       positions.each do |position|
         x = rand(0..10)
+        y = rand(0..13)
         text.gravity = position
         text.annotate(dog, 0,0,0,0, texts[x]) {
-          self.fill = 'gold'
-        }
+          self.fill = colors[y]        }
+        y = rand(0..13)
       end
       @meme = dog.write("app/assets/images/meme.jpg")
 
