@@ -33,7 +33,7 @@ class Api::PetsController < ApplicationController
 
       image = @pet["media"]["photos"]["photo"][2]["$t"]
 
-      # @favorite = Favorite.find_by(user_id: current_user.id, petfinder_id: params[:id])
+      @favorite = Favorite.find_by(user_id: current_user.id, petfinder_id: params[:id])
  
       dog = ImageList.new(image)
 
