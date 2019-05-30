@@ -1,24 +1,9 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Ruby on rails backend for my Capstone project: Adopt-a-meme.
 
-Things you may want to cover:
+Many dogs end up at the shelter or rescue, looking for new homes. Older dogs and certain breeds are adopted at low rates, but when shelters include a picture of the dog, the adoption rate is higher. What if shelters included an amazing doge meme too? This app takes in data from the Petfinder API & outputs that data with a generated meme & links back to the rescue so people can adopt the pupper!
 
-* Ruby version
+CC-BY-4.0
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Uses Rmagick https://rmagick.github.io/ to generate memes.
